@@ -20,6 +20,7 @@ from wsgiref.simple_server import make_server
 from paste.deploy.loadwsgi import loadapp
 from pytest import yield_fixture
 
+from pytest_server_fixtures import DEFAULT_SERVER_FIXTURES_HOSTNAME
 from pytest_server_fixtures.http import HTTPTestServer
 
 
@@ -84,7 +85,7 @@ class PyramidTestServer(HTTPTestServer):
         os.environ['DEBUG'] = '1'
 
         # Discover externally accessable hostname so selenium can get to it
-        kwargs['hostname'] = kwargs.get('hostname', socket.gethostbyname(os.uname()[1]))
+        kwargs['hostname'] = kwargs.get('hostname', DEFAULT_SERVER_FIXTURES_HOSTNAME)
 
         super(PyramidTestServer, self).__init__(preserve_sys_path=True, **kwargs)
 
